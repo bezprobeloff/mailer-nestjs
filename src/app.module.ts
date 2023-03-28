@@ -7,11 +7,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true,
+      isGlobal: true
     }),
     MailModule
   ],
   controllers: [AppController],
-  providers: [AppService, ConfigService],
+  providers: [AppService, ConfigService]
 })
 export class AppModule {}

@@ -7,8 +7,7 @@ interface User {
 }
 @Injectable()
 export class MailService {
-  constructor(private mailerService : MailerService) {
-  }
+  constructor(private mailerService: MailerService) {}
 
   async sendUserConfirmation(user: User) {
     console.log(user.email);
@@ -18,8 +17,8 @@ export class MailService {
       subject: 'Привет!',
       template: './confirmation',
       context: {
-        name: user.name,
-      },
+        name: user.name
+      }
     });
   }
   create() {

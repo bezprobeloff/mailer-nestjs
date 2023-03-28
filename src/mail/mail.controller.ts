@@ -10,7 +10,7 @@ export class MailController {
 
   @Post()
   async create(@Body() user: User) {
-    await this.mailService.sendUserConfirmation(user)
+    await this.mailService.sendUserConfirmation(user);
   }
 
   @Get()
