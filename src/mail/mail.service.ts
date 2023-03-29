@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
+import { ConfigService } from '@nestjs/config';
 
 interface User {
   email: string;
@@ -7,37 +8,21 @@ interface User {
 }
 @Injectable()
 export class MailService {
-  constructor(private mailerService: MailerService) {}
+  constructor(private mailerService: MailerService, private configService: ConfigService) {}
 
-  async sendUserConfirmation(user: User) {
-    console.log(user.email);
-    await this.mailerService.sendMail({
-      to: user.email,
-      from: '"Тест отправки" <beloff89@mail.ru>',
-      subject: 'Привет!',
-      template: './confirmation',
-      context: {
-        name: user.name
-      }
-    });
-  }
-  create() {
-    return 'This action adds a new mail';
-  }
-
-  findAll() {
-    return `This action returns all mail`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} mail`;
-  }
-
-  update(id: number) {
-    return `This action updates a #${id} mail`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} mail`;
+  async sendUserData(user: User) {
+    try {
+      await this.mailerService.sendMail({
+        to: user.email,
+        from: `"Тест отправки" <${this.configService.get<string>('MAIL_FROM')}`,
+        subject: 'Привет!',
+        template: './confirmation',
+        context: {
+          name: user.name
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

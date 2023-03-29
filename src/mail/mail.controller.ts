@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { MailService } from './mail.service';
 interface User {
   email: string;
@@ -10,26 +10,6 @@ export class MailController {
 
   @Post()
   async create(@Body() user: User) {
-    await this.mailService.sendUserConfirmation(user);
-  }
-
-  @Get()
-  findAll() {
-    return this.mailService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.mailService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string) {
-    return this.mailService.update(+id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.mailService.remove(+id);
+    await this.mailService.sendUserData(user);
   }
 }
