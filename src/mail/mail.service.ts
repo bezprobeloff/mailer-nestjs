@@ -1,16 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
+import { IUser } from './intefaces/mail.interface';
 
-interface User {
-  email: string;
-  name: string;
-}
 @Injectable()
 export class MailService {
   constructor(private mailerService: MailerService, private configService: ConfigService) {}
 
-  async sendUserData(user: User) {
+  async sendUserData(user: IUser) {
     try {
       await this.mailerService.sendMail({
         to: user.email,
